@@ -1,43 +1,50 @@
 # Standards Offline-First — Flutter/Dart
 
-Bonnes pratiques pour les couches **Provider** (réseau) et **Repository**
-(données) d'une app **offline-first**. À appliquer sur tous mes projets Flutter.
-
-Tirées de décisions réelles : centralisation du réseau, repli local fiable,
-détection d'erreurs unifiée, testabilité.
+Bonnes pratiques pour les couches **données** (providers remote/local) et
+**Repository** d'une app **offline-first**, indépendantes du state management.
+À appliquer sur tous mes projets Flutter.
 
 ## Sommaire
 
 1. [Architecture en couches](01-architecture-couches.md)
-2. [Réseau & erreurs](02-reseau-et-erreurs.md) — `ApiHttp`, `HttpException`, `isNetworkError`
+2. [Réseau, erreurs & `Failure`](02-reseau-et-erreurs.md) — `ApiHttp`, `HttpException`, `isNetworkError`, taxonomie `Failure`
 3. [Lecture offline-first](03-lecture-offline-first.md) — `readOnlineFirst`
 4. [Écriture offline-first](04-ecriture-offline-first.md) — effet local optimiste
 5. [Conventions](05-conventions.md) — `Either`, commentaires, DRY, tests
-6. [File de synchronisation](06-file-de-sync.md) — `SyncXxx`, replay, réconciliation d'ids
+6. [File de synchronisation](06-file-de-sync.md) — `SyncXxx`, replay, réconciliation
 7. [Service de connectivité](07-connectivite.md) — interface vs sonde serveur
+8. [État agnostique](08-etat-agnostique.md) — un contrat, N state managers (Cubit/GetX/Riverpod…)
+9. [Cache local Hive](09-cache-hive.md) — `LocalProvider`, `Box<X>` typée
 
-## Les 5 invariants non négociables
+## Le modèle en une image
 
-1. **Tout HTTP passe par un seul client avec timeout** (`ApiHttp`). Jamais de
-   `http` brut (sinon l'UI gèle quand le serveur est injoignable).
-2. **Une seule `HttpException` typée** (avec `statusCode`). Les providers la
-   lèvent sur non-2xx. Jamais de `throw Exception('...')` générique pour une
-   erreur HTTP, jamais de classe dupliquée.
-3. **Une seule fonction `isNetworkError`**. Jamais de copie locale ni de bloc
-   `.contains('SocketException')` inline.
-4. **Lecture = `readOnlineFirst`** : réseau KO ou 5xx → cache local ; 4xx →
-   erreur remontée. Une liste ne se vide jamais à cause d'un timeout.
-5. **Écriture offline-first** : erreur réseau → effet local + file de sync ;
-   erreur métier → erreur remontée.
+```
+UI
+ │
+State (Cubit / GetX / Riverpod / ChangeNotifier)   ← adaptateur mince
+ │            consomme  Either<Failure, T>
+Repository                                          ← orchestre online/offline
+ ├── XxxApiProvider    (remote : HTTP via ApiHttp)
+ └── XxxLocalProvider  (local  : Box<X> Hive)
+```
 
-## Checklist (nouveau repo/provider)
+## Les invariants non négociables
 
-- [ ] Provider : tous les appels via `ApiHttp` (timeout).
-- [ ] Provider : lève `HttpException(statusCode, message, body)` sur non-2xx.
-- [ ] Provider : `on HttpException { rethrow }` si un `catch` générique enveloppe.
-- [ ] Repository (lecture) : passe par `readOnlineFirst`.
+1. **Tout HTTP via un seul client avec timeout** (`ApiHttp`). Jamais de `http` brut.
+2. **Une seule `HttpException` typée** (statusCode). Providers la lèvent sur non-2xx.
+3. **Une seule `isNetworkError`**. Jamais de copie ni de `.contains('SocketException')`.
+4. **Données = 2 providers** : `ApiProvider` (remote) + `LocalProvider` (local).
+   Le Repository orchestre ; il ne touche jamais la box directement.
+5. **Lecture = `readOnlineFirst`** : réseau/5xx → cache ; 4xx → `Failure`.
+6. **Écriture offline-first** : réseau → effet local + file de sync ; 4xx/5xx → `Failure`.
+7. **Contrat Repository = `Either<Failure, T>`** — agnostique du state management.
+
+## Checklist (nouveau module)
+
+- [ ] `data/models/`, `data/providers/`, `data/repositories/`.
+- [ ] `XxxApiProvider` : appels via `ApiHttp`, lève `HttpException` sur non-2xx.
+- [ ] `XxxLocalProvider` : `Box<X>` typée, ops granulaires (`put`/`putAll`/`get`/`delete`).
+- [ ] Repository (lecture) : `readOnlineFirst`, renvoie `Either<Failure, T>`.
 - [ ] Repository (écriture) : online-first + file de sync sur erreur réseau.
-- [ ] Détection réseau : `isNetworkError` partagé, jamais recopié.
-- [ ] Retour Repository : `Either<String, T>`.
-- [ ] Commentaires : « pourquoi » seulement.
+- [ ] State layer : `fold` du `Either<Failure, T>` → états (aucun string-matching).
 - [ ] Un test du helper couvre la politique de lecture.

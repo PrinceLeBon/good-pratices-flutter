@@ -48,3 +48,9 @@ Repository                                          ← orchestre online/offline
 - [ ] Repository (écriture) : online-first + file de sync sur erreur réseau.
 - [ ] State layer : `fold` du `Either<Failure, T>` → états (aucun string-matching).
 - [ ] Un test du helper couvre la politique de lecture.
+
+## Autres standards
+
+- [Publication App Store — iOS](publication-app-store/README.md) — modèle de
+  monétisation, interface iOS sans achat (anti-steering), métadonnées et pages
+  publiques, comptes de démonstration, signature et build, réponses au reviewer.

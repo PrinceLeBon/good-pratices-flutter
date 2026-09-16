@@ -17,8 +17,8 @@ file de synchronisation · cache Hive
 ### [Publication App Store — iOS](publication-app-store/README.md)
 
 Ce qu'il faut décider, coder et préparer pour passer la revue Apple au premier
-essai. Centré sur le point qui coince le plus : encaisser de l'argent quand on
-ne veut pas de l'achat intégré.
+essai. Centré sur le point qui coince le plus : encaisser hors de l'achat
+intégré, et savoir dans quels cas Apple le permet.
 
 modèle de monétisation · anti-steering · métadonnées et pages publiques ·
 comptes de démonstration · signature et build · réponses au reviewer

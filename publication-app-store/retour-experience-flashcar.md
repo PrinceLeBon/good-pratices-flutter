@@ -59,6 +59,22 @@ invitait à « renouveler depuis Mon entreprise », avec un bouton *Renouveler* 
 menait à un écran affirmant que le renouvellement n'était pas possible sur iOS.
 Pas une infraction, mais un parcours d'achat incomplet aux yeux d'un reviewer.
 
+## Pourquoi l'approche a tenu
+
+FlashCar ne vend rien dans son app iOS. Ce n'est admissible que parce qu'il
+s'agit d'un **outil vendu à des entreprises** — parcs automobiles, avec IFU,
+RCCM et collaborateurs invités : guideline `3.1.3(c)`, services aux entreprises.
+
+Sur le moment, on l'a classé à tort en « service multiplateforme ». Ce modèle
+exige que les offres existent aussi en achat intégré (`3.1.3(b)`) ; il ne couvre
+pas une app qui ne vend rien. Erreur corrigée le 16/09/2026, après relecture du
+texte exact des guidelines. La soumission n'a jamais cité de guideline
+d'exception : c'est le caractère B2B manifeste de l'app qui a suffi.
+
+**Point résiduel** repéré le même jour : les rappels d'échéance J-60, J-30, J-3
+et J-1 disent « renouvelez-le » sur iOS aussi (cf.
+[02 §2.8](02-interface-ios-sans-achat.md)).
+
 ## Où le temps est réellement parti
 
 | # | Cause | Coût |
@@ -76,7 +92,8 @@ de formulations dans l'interface.
 
 1. **Trancher le modèle de monétisation avant de coder l'app iOS.** Le paiement
    externe était déjà partout quand la question s'est posée, d'où les
-   contorsions.
+   contorsions. Et citer la guideline d'exception — ici `3.1.3(c)` — dans les
+   App Review Notes dès la première soumission.
 2. **Monter le site public dès le premier jour.** Quatre pages statiques
    couvrent trois champs obligatoires et resservent sur toutes les apps.
 3. **Préparer deux comptes de démo dès le départ**, nominal et état limite.

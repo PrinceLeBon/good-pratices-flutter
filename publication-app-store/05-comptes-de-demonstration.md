@@ -27,7 +27,7 @@ demande un compte expiré — un aller-retour perdu. Avec un seul compte expiré
 ne voit aucune fonctionnalité et demande un accès complet. Fournir les deux clôt
 la question.
 
-**En modèle C, le compte expiré joue en ta faveur** : il montre, sans que tu aies
+**En modèles C et E, le compte expiré joue en ta faveur** : il montre, sans que tu aies
 à l'argumenter, qu'aucun achat n'est possible sur iOS.
 
 ## 5.3 Préparer les données

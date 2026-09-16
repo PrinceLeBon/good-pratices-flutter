@@ -4,13 +4,17 @@
 
 ## 8.1 Décision et code
 
-- [ ] Modèle de monétisation tranché ([01](01-modele-de-monetisation.md)) et
-      écrit dans les App Review Notes.
+- [ ] Modèle de monétisation tranché ([01](01-modele-de-monetisation.md)), et
+      guideline qui l'autorise citée dans les App Review Notes.
+- [ ] Modèle C : aucun particulier ne peut s'abonner seul, et la fiche App Store
+      présente l'app comme un outil pour les organisations.
 - [ ] Aucun prix ni bouton d'achat visible sur iOS, **y compris sur iPad**.
 - [ ] Le CTA est retiré de l'arbre de widgets, pas désactivé.
 - [ ] Les écrans atteints en état pré-ouvert (gardes, notifications) respectent
       aussi la règle.
 - [ ] Aucun message ne promet une action impossible sur iOS.
+- [ ] Notifications locales et push relues : aucune n'invite à payer ou à
+      renouveler sur iOS.
 - [ ] Textes sensibles centralisés en une source unique.
 
 ```
@@ -21,7 +25,8 @@ grep -rn "https\?://" lib/ | grep -i "pay\|abonn" → aucune URL de paiement
 ## 8.2 App Store Connect
 
 - [ ] Section *In-App Purchases and Subscriptions* de la version **vide**
-      (modèles A, C, D), ou grille `3.1.2(c)` satisfaite dans l'app (modèle B).
+      (tous les modèles sauf B), ou grille `3.1.2(c)` satisfaite dans l'app
+      (modèle B).
 - [ ] Aucun produit en `Waiting for Review` dans Monetization.
 - [ ] **Privacy Policy URL** renseignée et ouverte dans un navigateur pour
       vérification.

@@ -1,8 +1,9 @@
 # 2. Interface iOS sans achat
 
-S'applique au **modèle C** (service multiplateforme) et au **modèle D**
-(cf. [01](01-modele-de-monetisation.md)). C'est le chapitre où se perd le plus
-de temps en revue.
+S'applique aux modèles **C** (services aux entreprises) et **E** (app compagnon
+gratuite), et en partie au modèle **F**, qui peut afficher un lien de gestion de
+compte sous conditions (cf. [01](01-modele-de-monetisation.md)). C'est le
+chapitre où se perd le plus de temps en revue.
 
 ## 2.1 Les quatre règles
 
@@ -13,7 +14,8 @@ de temps en revue.
    informatif, pas commercial.
 3. **Aucune mention d'un canal externe.** Règle anti-steering (`3.1.3`) :
    interdiction de diriger l'utilisateur vers un moyen de paiement autre que
-   l'achat intégré.
+   l'achat intégré. Seule exception : la vitrine des États-Unis
+   (cf. [01 §1.5](01-modele-de-monetisation.md)).
 4. **Aucune promesse impossible.** Un message qui invite à renouveler alors que
    l'app iOS ne le permet pas mène à un écran qui dit le contraire. Ce n'est pas
    une infraction, mais un reviewer y lit un parcours d'achat incomplet.
@@ -96,3 +98,27 @@ inadvertance.
 Le reviewer teste fréquemment sur iPad. `Platform.isIOS` couvre iPadOS, mais les
 mises en page conditionnelles, elles, ne sont pas toujours vérifiées sur cette
 taille d'écran. Lance au moins une fois sur simulateur iPad avant l'envoi.
+
+## 2.8 Les notifications font partie de l'interface
+
+Une notification locale ou push est émise **par l'app** : mêmes règles que les
+écrans. Un rappel « votre abonnement expire demain, renouvelez-le » programmé
+sur iOS promet une action que l'app iOS ne permet pas.
+
+- Conditionne le texte des rappels par plateforme (modèle en
+  [09 §9.4](09-modeles-prets-a-l-emploi.md)).
+- Sur iOS, un rappel **constate** l'échéance ; il n'invite pas à payer.
+- Relis aussi les notifications envoyées par le backend : elles échappent
+  souvent à la revue de code de l'app.
+
+> Cas réel : sur FlashCar, les rappels J-60/J-30/J-3/J-1 disaient
+> « renouvelez-le » sur les deux plateformes. Repéré le 16/09/2026, après la
+> mise en production.
+
+## 2.9 Parler de paiement hors de l'app
+
+`3.1.3` autorise explicitement l'éditeur à informer ses clients des autres moyens
+de paiement **en dehors de l'app** : courriel, SMS, WhatsApp, force commerciale,
+facture. En modèle C, c'est le canal normal des renouvellements.
+
+Tout ce qui s'affiche **dans** l'app reste soumis à la règle 3.

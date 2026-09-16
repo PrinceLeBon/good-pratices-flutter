@@ -42,6 +42,11 @@ La grille `3.1.2(c)` s'applique et se traite dans l'écran d'achat lui-même :
 Ces quatre éléments doivent être visibles **sans défilement supplémentaire** au
 moment où l'utilisateur décide.
 
+**Achats faits ailleurs.** Si l'offre se vend aussi sur le web ou sur une autre
+plateforme, l'app peut reconnaître ces achats au titre de `3.1.3(b)` — à
+condition que la même offre existe en achat intégré (cf.
+[01 §1.3](01-modele-de-monetisation.md)).
+
 ## 3.4 Contrôle croisé métadonnées
 
 Même quand tout est correct dans l'app, `3.1.2(c)` impose en parallèle, côté
@@ -57,7 +62,7 @@ métadonnées produit exactement le même rejet.
 ## 3.5 Essai gratuit
 
 Un essai gratuit **sans paiement dans l'app** ne constitue pas un achat et reste
-utilisable sur iOS en modèle C. Il donne au reviewer un moyen d'explorer les
+utilisable sur iOS en modèles C et E. Il donne au reviewer un moyen d'explorer les
 fonctionnalités sans compte pré-abonné.
 
 Attention à sa condition d'affichage : si le bouton d'essai n'est rendu que dans
